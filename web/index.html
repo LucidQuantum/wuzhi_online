@@ -76,6 +76,8 @@
         function updateProgress(percent /* 范围 0 - 1 */) {
             var str = "";
             for (var i = 0; i < size; i++) {
+                // 这个进度条用|-（半角）是等宽的，如果用｜（全角）的话，它是不等宽的
+                // 应该使用半角字符
                 if (i / size < percent) str += "|";
                 else str += "-";
             }
