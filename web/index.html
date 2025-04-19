@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!--
+  <head>
+    <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
 
@@ -14,25 +14,95 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
+    <base href="$FLUTTER_BASE_HREF" />
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="雾质官网" />
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="wuzhi_online">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="雾质官网" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>wuzhi_online</title>
-  <link rel="manifest" href="manifest.json">
-</head>
-<body>
-  <script src="flutter_bootstrap.js" async></script>
-</body>
+    <title>雾质官网</title>
+    <link rel="manifest" href="manifest.json" />
+
+    <style>
+      /* @font-face {
+        font-family: "FangSong";
+        src: url("assets/fonts/坊宋.ttf") format("truetype");
+      } */
+      .loading {
+        position: fixed;
+        z-index: 999999;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #0b0b0b;
+        color: #b9b9b9;
+        /* font-family: "FangSong", sans-serif; */
+        transition: opacity 0.8s;
+      }
+      .loading-text {
+        margin-bottom: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading">
+      <div class="loading-text"></div>
+      <div>下载必要组件中，请稍候</div>
+    </div>
+    <script>
+      var progress = 0;
+      var size = 20; // 进度条占位符数量
+      var speed = 0.08; // 增长速度
+      var timer;
+
+      function updateProgress(percent /* 范围 0 - 1 */) {
+        var str = "";
+        for (var i = 0; i < size; i++) {
+          if (i / size < percent) str += "｜";
+          else str += " - ";
+        }
+        var el = document.querySelector(".loading-text");
+        if (el) {
+          el.textContent = `${Math.round(percent * 100)} [ ${str} ] 100%`;
+        }
+      }
+
+      function finished() {
+        clearInterval(timer);
+        progress = 1;
+        updateProgress(progress);
+      }
+
+      timer = setInterval(() => {
+        if (progress < 0.88) {
+          progress += Math.round(Math.random() * speed * 100) / 100;
+          updateProgress(progress);
+        } else {
+          clearInterval(timer);
+        }
+      }, 100);
+
+      window.addEventListener("flutter-first-frame", function () {
+        finished();
+        var el = document.querySelector(".loading");
+        if (el) {
+          el.style.opacity = 0;
+          setTimeout(() => el.remove(), 800); // 对应 transition 的过渡时间
+        }
+      });
+    </script>
+
+    <script src="flutter_bootstrap.js" async></script>
+  </body>
 </html>
