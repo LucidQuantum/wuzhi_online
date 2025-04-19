@@ -33,10 +33,10 @@
     <link rel="manifest" href="manifest.json" />
 
     <style>
-      /* @font-face {
-        font-family: "FangSong";
-        src: url("assets/fonts/坊宋.ttf") format("truetype");
-      } */
+      @font-face {
+        font-family: "fusion";
+        src: url("assets/fonts/fusion.ttf") format("truetype");
+      }
       .loading {
         position: fixed;
         z-index: 999999;
@@ -47,7 +47,7 @@
         align-items: center;
         background-color: #0b0b0b;
         color: #b9b9b9;
-        /* font-family: "FangSong", sans-serif; */
+        font-family: "fusion", sans-serif;
         transition: opacity 0.8s;
       }
       .loading-text {
@@ -63,7 +63,7 @@
     <script>
       var progress = 0;
       var size = 20; // 进度条占位符数量
-      var speed = 0.08; // 增长速度
+      var speed = 0.1; // 增长速度
       var timer;
 
       function updateProgress(percent /* 范围 0 - 1 */) {
